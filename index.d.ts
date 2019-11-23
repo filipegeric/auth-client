@@ -8,8 +8,11 @@ export interface AuthClient {
     password: string;
     fullName: string;
   }): Promise<User>;
-  login(email: string, password: string): Promise<any>;
-  refresh(): Promise<any>;
+  login(options: {
+    email: string;
+    password: string;
+  }): Promise<{ accessToken: string }>;
+  refresh(): Promise<{ accessToken: string }>;
   logout(): Promise<any>;
   changePassword(
     email: string,
@@ -22,7 +25,7 @@ export interface AuthClient {
     code: number | string,
     password: string,
   ): Promise<any>;
-  getCurrentUser(): Promise<any>;
+  getCurrentUser(): Promise<User>;
   googleLogin(googleIdToken: string): Promise<any>;
 }
 
