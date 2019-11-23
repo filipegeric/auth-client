@@ -1,13 +1,20 @@
 {
-  "name": "auth-client",
-  "version": "1.0.0",
+  "name": "egeres-auth-client",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
+  "typings": "./index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublish": "tsc",
+    "prepare": "npm run build"
   },
   "keywords": [],
-  "author": "",
+  "files": [
+    "lib/**/*",
+    "index.d.ts"
+  ],
+  "author": "filipegeric",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0"
