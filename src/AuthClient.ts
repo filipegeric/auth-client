@@ -58,6 +58,9 @@ export class AuthClient {
 
   async getCurrentUser() {
     try {
+      if (!this.accessToken) {
+        return null;
+      }
       const jwtExpiresAt = decodeJwt<{ exp: number }>(this.accessToken).exp;
       if (Date.now() >= jwtExpiresAt * 1000) {
         const { accessToken } = await this.refresh();
