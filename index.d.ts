@@ -51,4 +51,4 @@ export interface User {
   fullName: string;
 }
 
-export function createAuthClient(options: CreateOptions): AuthClient;
+export function createAuthClient(options: CreateOptions): Promise<AuthClient>;

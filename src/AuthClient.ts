@@ -21,8 +21,6 @@ export class AuthClient {
       baseURL: authServerUrl,
       withCredentials: true,
     });
-
-    this.refresh().catch(e => console.log(e));
   }
 
   private setAccessToken(token: string) {
