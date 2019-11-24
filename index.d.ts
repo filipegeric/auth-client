@@ -37,12 +37,12 @@ export class AuthClient {
   register(options: RegisterOptions): Promise<User>;
   login(options: LoginOptions): Promise<{ accessToken: string }>;
   refresh(): Promise<{ accessToken: string }>;
-  logout(): Promise<any>;
+  logout(): Promise<{ ok: boolean }>;
   changePassword(options: ChangePasswordOptions): Promise<any>;
   forgotPassword(options: ForgotPasswordOptions): Promise<any>;
   forgotPasswordSubmit(options: ForgotPasswordSubmitOptions): Promise<any>;
-  getCurrentUser(): Promise<User>;
-  googleLogin(options: GoogleLoginOptions): Promise<any>;
+  getCurrentUser(): Promise<User | null>;
+  googleLogin(options: GoogleLoginOptions): Promise<{ accessToken: string }>;
 }
 
 export interface User {
@@ -51,4 +51,4 @@ export interface User {
   fullName: string;
 }
 
-export function createAuthClient(options: CreateOptions): Promise<AuthClient>;
+export function createAuthClient(options: CreateOptions): AuthClient;
