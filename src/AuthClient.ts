@@ -150,7 +150,7 @@ export class AuthClient {
     try {
       const res = await this.axiosInstance.post<{ accessToken: string }>(
         '/google/login',
-        options,
+        { idToken: options.googleIdToken },
       );
 
       this.setAccessToken(res.data.accessToken);
