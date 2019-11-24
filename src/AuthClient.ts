@@ -22,7 +22,7 @@ export class AuthClient {
       withCredentials: true,
     });
 
-    // TODO: call refresh
+    this.refresh().catch(e => console.log(e));
   }
 
   private setAccessToken(token: string) {
@@ -63,8 +63,7 @@ export class AuthClient {
       }
       const jwtExpiresAt = decodeJwt<{ exp: number }>(this.accessToken).exp;
       if (Date.now() >= jwtExpiresAt * 1000) {
-        const { accessToken } = await this.refresh();
-        this.setAccessToken(accessToken);
+        await this.refresh();
       }
       const { data: user } = await this.axiosInstance.get<User>('/users/me');
 
@@ -83,6 +82,8 @@ export class AuthClient {
         '/auth/refresh',
       );
 
+      this.setAccessToken(data.accessToken);
+
       return data;
     } catch (error) {
       throw new AuthError(error);
@@ -94,6 +95,9 @@ export class AuthClient {
       const res = await this.axiosInstance.post<{ ok: boolean }>(
         '/auth/logout',
       );
+
+      this.accessToken = '';
+      delete this.axiosInstance.defaults.headers.authorization;
 
       return res.data;
     } catch (error) {
