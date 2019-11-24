@@ -2,31 +2,47 @@ export interface CreateOptions {
   authServerUrl: string;
 }
 
-export interface AuthClient {
-  register(options: {
-    email: string;
-    password: string;
-    fullName: string;
-  }): Promise<User>;
-  login(options: {
-    email: string;
-    password: string;
-  }): Promise<{ accessToken: string }>;
+export interface RegisterOptions {
+  email: string;
+  password: string;
+  fullName: string;
+}
+
+export interface LoginOptions {
+  email: string;
+  password: string;
+}
+
+export interface ChangePasswordOptions {
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface ForgotPasswordOptions {
+  email: string;
+}
+
+export interface ForgotPasswordSubmitOptions {
+  email: string;
+  code: number | string;
+  password: string;
+}
+
+export interface GoogleLoginOptions {
+  googleIdToken: string;
+}
+
+export class AuthClient {
+  register(options: RegisterOptions): Promise<User>;
+  login(options: LoginOptions): Promise<{ accessToken: string }>;
   refresh(): Promise<{ accessToken: string }>;
   logout(): Promise<any>;
-  changePassword(
-    email: string,
-    oldPassword: string,
-    newPassword: string,
-  ): Promise<any>;
-  forgotPassword(email: string): Promise<any>;
-  forgotPasswordSubmit(
-    email: string,
-    code: number | string,
-    password: string,
-  ): Promise<any>;
+  changePassword(options: ChangePasswordOptions): Promise<any>;
+  forgotPassword(options: ForgotPasswordOptions): Promise<any>;
+  forgotPasswordSubmit(options: ForgotPasswordSubmitOptions): Promise<any>;
   getCurrentUser(): Promise<User>;
-  googleLogin(googleIdToken: string): Promise<any>;
+  googleLogin(options: GoogleLoginOptions): Promise<any>;
 }
 
 export interface User {
